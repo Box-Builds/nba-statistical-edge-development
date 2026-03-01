@@ -1,8 +1,8 @@
-\# Phase 1 – Market Comparison
+# Phase 1 – Market Comparison
 
 
 
-\## What question was this phase trying to answer?
+## What question was this phase trying to answer?
 
 
 
@@ -14,7 +14,7 @@ The initial hypothesis was that sharp books, which are heavily bet into and clos
 
 
 
-\## What was done in this phase?
+## What was done in this phase?
 
 
 
@@ -34,7 +34,7 @@ Evaluated whether these discrepancies translated into repeatable EV in practice.
 
 
 
-\## What worked (partially)?
+## What worked (partially)?
 
 
 
@@ -50,7 +50,7 @@ These situations were more favorable when the DFS market did not dynamically adj
 
 
 
-\## What didn’t work (and why)?
+## What didn’t work (and why)?
 
 
 
@@ -82,7 +82,7 @@ These structural differences introduced noise and inconsistency into pure market
 
 
 
-\## Key insight from this phase
+## Key insight from this phase
 
 
 
@@ -114,7 +114,7 @@ This realization highlighted that working directly with historical data offers m
 
 
 
-\## Key takeaway
+## Key takeaway
 
 
 
@@ -126,7 +126,7 @@ This insight led to a shift away from pure market-based strategies and toward in
 
 
 
-\## What would be improved or explored next?
+## What would be improved or explored next?
 
 
 
