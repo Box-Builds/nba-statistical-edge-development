@@ -80,11 +80,11 @@ At a high level, the logic filter:
 
 &nbsp; - current season
 
-\- Enforces strict percentage thresholds
+- Enforces strict percentage thresholds
 
-\- Applies additional rule constraints (e.g., odds filters, line-type rules)
+- Applies additional rule constraints (e.g., odds filters, line-type rules)
 
-\- Outputs a filtered shortlist of candidate lines
+- Outputs a filtered shortlist of candidate lines
 
 
 
@@ -92,11 +92,11 @@ Lines that fail any critical check are discarded.
 
 
 
-\## Supported data sources
+## Supported data sources
 
 
 
-\### Underdog (Odds API)
+### Underdog (Odds API)
 
 
 
@@ -106,15 +106,15 @@ Underdog lines are fetched via the Odds API using `Underdog\_lines.py`.
 
 \*\*Requirements:\*\*
 
-\- A valid Odds API key
+- A valid Odds API key
 
-\- API key supplied via environment variable:
+- API key supplied via environment variable:
 
 
 
 \*\*Output:\*\*
 
-\- `data/underdog\_lines.csv`
+- `data/underdog\_lines.csv`
 
 
 
@@ -122,7 +122,7 @@ This script is intentionally generic and can be extended to support additional s
 
 
 
-\### PrizePicks (manual JSON input)
+### PrizePicks (manual JSON input)
 
 
 
@@ -138,11 +138,11 @@ Instead:
 
 
 
-\- A manually downloaded JSON response is placed in:
+- A manually downloaded JSON response is placed in:
 
 &nbsp; - `data/sample\_prizepicks\_api.json`
 
-\- `Prizepicks\_lines\_parser.py` parses this file and produces:
+- `Prizepicks\_lines\_parser.py` parses this file and produces:
 
 &nbsp; - `data/prizepicks\_lines.csv`
 
@@ -152,7 +152,7 @@ The included JSON file is a sanitized sample intended to demonstrate required st
 
 
 
-\## Filtering logic (high level)
+## Filtering logic (high level)
 
 
 
@@ -160,21 +160,21 @@ For a line to pass:
 
 
 
-\- A clear side (Over or Under) must meet the threshold in last 5 games
+- A clear side (Over or Under) must meet the threshold in last 5 games
 
-\- That same side must \*\*not\*\* fall below threshold in:
+- That same side must \*\*not\*\* fall below threshold in:
 
 &nbsp; - last 10 games (if available)
 
 &nbsp; - last 25 games (if available)
 
-\- The current season hit rate must also meet the threshold
+- The current season hit rate must also meet the threshold
 
-\- Unsupported stats are discarded
+- Unsupported stats are discarded
 
-\- Certain line types (e.g., demon lines) may enforce directional constraints
+- Certain line types (e.g., demon lines) may enforce directional constraints
 
-\- For odds-based books, extreme pricing is filtered out
+- For odds-based books, extreme pricing is filtered out
 
 
 
@@ -182,7 +182,7 @@ The default threshold is intentionally strict (e.g., 70%) to reduce noise.
 
 
 
-\## Season boundary handling (future update)
+## Season boundary handling (future update)
 
 
 
@@ -194,9 +194,9 @@ A planned future update introduces controlled carryover logic:
 
 
 
-\- Up to 10 games from the end of the previous regular season may be included
+- Up to 10 games from the end of the previous regular season may be included
 
-\- These games will be:
+- These games will be:
 
 &nbsp; - explicitly labeled as prior-season data
 
@@ -210,7 +210,7 @@ This prevents misleading confidence early in the season without permanently blen
 
 
 
-\## Human-in-the-loop validation
+## Human-in-the-loop validation
 
 
 
@@ -222,19 +222,19 @@ This engine produces a shortlist — not final decisions.
 
 
 
-\### In practice, every filtered line is manually reviewed for edge cases such as:
+### In practice, every filtered line is manually reviewed for edge cases such as:
 
 
 
-\- recent injury returns or minutes restrictions
+- recent injury returns or minutes restrictions
 
-\- role changes due to trades or lineup shifts
+- role changes due to trades or lineup shifts
 
-\- back-to-back scheduling effects
+- back-to-back scheduling effects
 
-\- late-breaking news not reflected in historical data
+- late-breaking news not reflected in historical data
 
-\- distributions that technically pass thresholds but still “look wrong”
+- distributions that technically pass thresholds but still “look wrong”
 
 
 
@@ -242,7 +242,7 @@ This final review step is intentional and required.
 
 
 
-\## Design philosophy
+## Design philosophy
 
 
 
@@ -250,11 +250,11 @@ This phase deliberately avoids:
 
 
 
-\- black-box scoring
+- black-box scoring
 
-\- hidden weighting schemes
+- hidden weighting schemes
 
-\- fully automated decision logic
+- fully automated decision logic
 
 
 
@@ -262,13 +262,13 @@ Instead, it prioritizes:
 
 
 
-\- transparency
+- transparency
 
-\- repeatability
+- repeatability
 
-\- conservative filtering
+- conservative filtering
 
-\- explicit assumptions
+- explicit assumptions
 
 
 
@@ -284,7 +284,7 @@ Humans provide judgment.
 
 
 
-\## Outputs
+## Outputs
 
 
 
@@ -292,11 +292,11 @@ Filtered results are written to the `output/` directory as CSV files suitable fo
 
 
 
-\- manual review
+- manual review
 
-\- downstream tooling
+- downstream tooling
 
-\- audit and iteration
+- audit and iteration
 
 
 
@@ -304,17 +304,17 @@ No output should be treated as authoritative without review.
 
 
 
-\## Limitations
+## Limitations
 
 
 
-\- Historical hit rates cannot capture all contextual factors
+- Historical hit rates cannot capture all contextual factors
 
-\- Strict thresholds may discard lines that are “close but valid”
+- Strict thresholds may discard lines that are “close but valid”
 
-\- This engine favors precision over recall
+- This engine favors precision over recall
 
-\- Human judgment remains necessary
+- Human judgment remains necessary
 
 
 
@@ -322,7 +322,7 @@ These tradeoffs are intentional.
 
 
 
-\## Final note
+## Final note
 
 
 
