@@ -22,19 +22,19 @@ At a high level, the system consists of:
 
 
 
-Phase 1: An exploratory market-comparison study that identified the limitations of inferring probability from pricing alone
+### Phase 1: An exploratory market-comparison study that identified the limitations of inferring probability from pricing alone
 
 
 
-Phase 2: A production-style machine learning pipeline that generates daily NBA player stat predictions in an automated, reproducible environment
+### Phase 2: A production-style machine learning pipeline that generates daily NBA player stat predictions in an automated, reproducible environment
 
 
 
-Phase 3: A human-facing probability and interpretability app that contextualizes predictions using historical hit rates, distributions, and minutes-based signals
+### Phase 3: A human-facing probability and interpretability app that contextualizes predictions using historical hit rates, distributions, and minutes-based signals
 
 
 
-Phase 4: A conservative, rule-based filtering engine that narrows large slates into a small, reviewable candidate set using explicit historical thresholds
+### Phase 4: A conservative, rule-based filtering engine that narrows large slates into a small, reviewable candidate set using explicit historical thresholds
 
 
 
