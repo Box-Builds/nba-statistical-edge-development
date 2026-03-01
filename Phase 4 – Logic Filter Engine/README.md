@@ -104,7 +104,7 @@ Underdog lines are fetched via the Odds API using `Underdog\_lines.py`.
 
 
 
-\*\*Requirements:\*\*
+**Requirements:**
 
 - A valid Odds API key
 
@@ -112,7 +112,7 @@ Underdog lines are fetched via the Odds API using `Underdog\_lines.py`.
 
 
 
-\*\*Output:\*\*
+**Output:**
 
 - `data/underdog\_lines.csv`
 
