@@ -1,8 +1,8 @@
-\# Phase 3 – Probability \& Interpretability App
+# Phase 3 – Probability \& Interpretability App
 
 
 
-\## Overview
+## Overview
 
 
 
@@ -18,7 +18,7 @@ Although this app was not originally planned as a formal project phase, it emerg
 
 
 
-\## How this phase came to be
+## How this phase came to be
 
 
 
@@ -30,7 +30,7 @@ Model outputs alone were not enough to confidently evaluate player props.
 
 
 
-\### In practice, questions kept coming up
+### In practice, questions kept coming up
 
 
 
@@ -56,11 +56,11 @@ This app was built as a fast, interactive way to inspect distributions, hit rate
 
 
 
-\### What began as a one-day exploratory tool quickly became indispensable.
+### What began as a one-day exploratory tool quickly became indispensable.
 
 
 
-\## What problem this phase solves
+## What problem this phase solves
 
 
 
@@ -70,7 +70,7 @@ Before using those numbers downstream, they need context.
 
 
 
-\### This phase focuses on answering
+### This phase focuses on answering
 
 
 
@@ -94,7 +94,7 @@ The goal is clarity, not automation.
 
 
 
-\## Data dependency (important)
+## Data dependency (important)
 
 
 
@@ -106,7 +106,7 @@ It relies on the same raw player game log data generated in Phase 2.
 
 
 
-\### To run this app locally:
+### To run this app locally:
 
 
 
@@ -190,7 +190,7 @@ The output is designed to be scanned quickly, not analyzed academically.
 
 
 
-\### Output structure (conceptual)
+### Output structure (conceptual)
 
 
 
@@ -246,11 +246,11 @@ Distributions that disagree with model output
 
 
 
-\## Key design decisions
+## Key design decisions
 
 
 
-\### Use direct historical outcomes (not market prices)
+### Use direct historical outcomes (not market prices)
 
 
 
@@ -258,7 +258,7 @@ Rather than inferring probability from sportsbook or DFS pricing, this app works
 
 
 
-\### This provides:
+### This provides:
 
 
 
@@ -302,7 +302,7 @@ Displaying multiple windows simultaneously encourages reasoning across time rath
 
 
 
-\### Weighted projection as guidance, not truth
+### Weighted projection as guidance, not truth
 
 
 
@@ -322,7 +322,7 @@ Highlight disagreements between historical distributions and projected output
 
 
 
-\#### This reinforced a recurring lesson throughout the project
+#### This reinforced a recurring lesson throughout the project
 
 
 
@@ -330,7 +330,7 @@ No single number should be trusted in isolation.
 
 
 
-\## How this phase was used in practice
+## How this phase was used in practice
 
 
 
@@ -338,7 +338,7 @@ In practice, this app served three main purposes
 
 
 
-\### Decision support
+### Decision support
 
 
 
@@ -346,7 +346,7 @@ A fast way to sanity-check potential plays before committing to them.
 
 
 
-\### Model validation
+### Model validation
 
 
 
@@ -354,7 +354,7 @@ A tool for comparing model outputs against real historical distributions.
 
 
 
-\### Data integrity checks
+### Data integrity checks
 
 
 
@@ -382,7 +382,7 @@ This phase frequently caught issues before they propagated downstream.
 
 
 
-\## What worked well
+## What worked well
 
 
 
@@ -402,7 +402,7 @@ Effective at catching edge cases and data quality problems
 
 
 
-\## Limitations
+## Limitations
 
 
 
@@ -422,7 +422,7 @@ This phase supports decision-making — it does not automate it.
 
 
 
-\## Key takeaway
+## Key takeaway
 
 
 
@@ -444,7 +444,7 @@ That realization directly motivated the logic-based filtering system in Phase 4.
 
 
 
-\## Final note
+## Final note
 
 
 
