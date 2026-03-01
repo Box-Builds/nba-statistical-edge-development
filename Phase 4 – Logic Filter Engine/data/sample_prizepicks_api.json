@@ -1,0 +1,78 @@
+{
+  "data": [
+    {
+      "type": "projection",
+      "id": "sample_proj_1",
+      "attributes": {
+        "stat_type": "Points",
+        "line_score": 24.5,
+        "start_time": "2026-03-01T13:10:00.000-05:00",
+        "odds_type": "standard"
+      },
+      "relationships": {
+        "new_player": {
+          "data": {
+            "type": "new_player",
+            "id": "sample_player_1"
+          }
+        }
+      }
+    },
+    {
+      "type": "projection",
+      "id": "sample_proj_2",
+      "attributes": {
+        "stat_type": "Pts+Rebs+Asts",
+        "line_score": 36.5,
+        "start_time": "2026-03-01T13:10:00.000-05:00",
+        "odds_type": "demon"
+      },
+      "relationships": {
+        "new_player": {
+          "data": {
+            "type": "new_player",
+            "id": "sample_player_1"
+          }
+        }
+      }
+    },
+    {
+      "type": "projection",
+      "id": "sample_proj_3",
+      "attributes": {
+        "stat_type": "Rebounds",
+        "line_score": 8.5,
+        "start_time": "2026-03-01T13:10:00.000-05:00",
+        "odds_type": "goblin"
+      },
+      "relationships": {
+        "new_player": {
+          "data": {
+            "type": "new_player",
+            "id": "sample_player_2"
+          }
+        }
+      }
+    }
+  ],
+  "included": [
+    {
+      "type": "new_player",
+      "id": "sample_player_1",
+      "attributes": {
+        "name": "Sample Player A",
+        "team": "AAA",
+        "team_name": "Alpha Team"
+      }
+    },
+    {
+      "type": "new_player",
+      "id": "sample_player_2",
+      "attributes": {
+        "name": "Sample Player B",
+        "team": "BBB",
+        "team_name": "Beta Team"
+      }
+    }
+  ]
+}

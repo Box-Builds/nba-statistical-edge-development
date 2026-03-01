@@ -1,0 +1,3 @@
+pandas
+pyyaml
+nba_api

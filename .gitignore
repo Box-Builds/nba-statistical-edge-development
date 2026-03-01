@@ -1,0 +1,26 @@
+# ----------------------------
+# Generated / non-redistributed artifacts (all phases)
+# ----------------------------
+**/data/raw/**
+**/data/processed/**
+**/outputs/**
+**/output/**
+
+# Common generated files
+**/*.csv
+**/*.pkl
+**/*.parquet
+**/*.joblib
+
+# Logs
+**/*.log
+**/*_log.txt
+**/master_pipeline_log.txt
+
+# Python cache
+**/__pycache__/
+**/*.pyc
+
+# OS / editor junk
+.DS_Store
+Thumbs.db

@@ -1,0 +1,103 @@
+name: NBA Pipeline Daily Run
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'data/raw/nba_player_game_stats_full.csv'
+
+jobs:
+  run_pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout repo using PAT
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PIPELINE_REPO_TOKEN }}
+          fetch-depth: 0  # full history for pushing
+
+      # 2️⃣ Setup Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      # 3️⃣ Install dependencies
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install pandas numpy lightgbm scikit-learn requests nba_api gspread oauth2client pyyaml
+
+      # 4️⃣ Run master.py
+      - name: Run master script
+        run: python -u Master.py
+
+      # 5️⃣ Stage all changes explicitly
+      - name: Stage all changes
+        run: git add -A
+
+      # 6️⃣ Commit all outputs
+      - name: Commit Master.py Outputs
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "🤖 Master.py outputs: Automated data refresh and predictions"
+          branch: master
+          commit_user_name: GitHub Actions Bot
+          commit_user_email: actions@github.com
+          commit_author: GitHub Actions Bot <actions@github.com>
+
+      # 7️⃣ Upload merged stable CSVs to Google Sheets
+      - name: Upload merged stable CSVs to Google Sheets
+        env:
+          GOOGLE_SHEETS_CREDENTIALS: ${{ secrets.GOOGLE_SHEETS_CREDENTIALS }}
+        run: |
+          python <<'EOF'
+          import os
+          import gspread
+          from oauth2client.service_account import ServiceAccountCredentials
+          import pandas as pd
+          import re
+
+          creds_json = os.environ['GOOGLE_SHEETS_CREDENTIALS']
+          creds = ServiceAccountCredentials.from_json_keyfile_dict(
+              eval(creds_json),
+              ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
+          )
+          client = gspread.authorize(creds)
+
+          folder = "outputs/merged_stable"
+          files_by_base = {}
+
+          for file in os.listdir(folder):
+              if file.endswith(".csv"):
+                  base_name = re.sub(r'_\d{8}', '', file.replace(".csv", ""))
+                  files_by_base.setdefault(base_name, []).append(file)
+
+          for base_name, files in files_by_base.items():
+              newest_file = max(files)  # assumes YYYYMMDD in filename sorts correctly
+              path = os.path.join(folder, newest_file)
+              df = pd.read_csv(path)
+              print(f"Uploading {newest_file} to Google Sheet '{base_name}'")
+              try:
+                  sh = client.open(base_name)
+                  sh.sheet1.clear()
+              except gspread.SpreadsheetNotFound:
+                  sh = client.create(base_name)
+              sh.sheet1.update([df.columns.values.tolist()] + df.values.tolist())
+          EOF
+
+      # 8️⃣ Push raw games CSV to app repo
+      - name: Copy raw games CSV to app repo
+        env:
+          APP_TOKEN: ${{ secrets.APP_REPO_TOKEN }}
+        run: |
+          git clone https://$APP_TOKEN@github.com/smithbobert30-gif/test.git app_repo
+          cp data/raw/nba_player_game_stats_full.csv app_repo/data/raw/
+          cd app_repo
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/raw/nba_player_game_stats_full.csv
+          git commit -m "Update raw games from NBA pipeline" || echo "No changes to commit"
+          git push origin main

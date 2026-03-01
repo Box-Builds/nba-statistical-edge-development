@@ -1,0 +1,45 @@
+# Raw data files
+raw_games: "data/raw/nba_player_game_stats_full.csv"
+raw_games_backup: "data/raw/nba_player_game_stats_full_backup.csv"
+raw_lineups_master: "data/raw/daily_lineups_master.csv"
+raw_rosters: "data/raw/nba_team_rosters.pkl"
+raw_schedule: "data/raw/nba_schedule_2025-26.csv"
+failed_players: "data/raw/failed_players.pkl"
+
+# Processed data
+processed_dir: "data/processed"
+processed_training_pts: "data/processed/nba_ai_training_pts.csv"
+processed_training_with_min_pred: "data/processed/nba_ai_training_with_min_pred.csv"
+processed_training_all: "data/processed/nba_ai_training.csv"
+processed_training_mins: "data/processed/mins_training_data.csv" 
+processed_oof: "data/processed/mins_oof_predictions.csv"
+processed_feature_importance_dir: "data/processed/model_feature_importance"
+processed_feature_importance_archive: "data/processed/model_feature_importance/archive"
+ 
+# Models
+models_dir: "data/processed"
+pts_model_exp: "data/processed/lgbm_pts_model_exp.pkl"
+pts_model_new_data: "data/processed/lgbm_pts_model_new_training_data.pkl"
+pts_model_stable: "data/processed/lgbm_pts_model_stable.pkl"
+reb_model_exp: "data/processed/lgbm_reb_model_exp.pkl"
+reb_model_stable: "data/processed/lgbm_reb_model_stable.pkl"
+ast_model_exp: "data/processed/lgbm_ast_model_exp.pkl"
+ast_model_stable: "data/processed/lgbm_ast_model_stable.pkl"
+fg3m_model_exp: "data/processed/lgbm_fg3m_model_exp.pkl"
+fg3m_model_stable: "data/processed/lgbm_fg3m_model_stable.pkl"
+mins_huber_model: "data/processed/mins_huber_model.pkl"
+
+# Prediction outputs
+predict_dir: "outputs"
+predict_ast_stable: "outputs/stable_ast"
+predict_ast_exp: "outputs/exp_ast"
+predict_pts_stable: "outputs/stable_pts"
+predict_pts_exp: "outputs/exp_pts"
+predict_pts_new_data: "outputs/new_data_pts"
+predict_reb_stable: "outputs/stable_reb"
+predict_reb_exp: "outputs/exp_reb"
+predict_fg3m_stable: "outputs/stable_fg3m"
+predict_fg3m_exp: "outputs/exp_fg3m"
+predict_mins: "outputs/mins"
+predict_merged_stable: "outputs/merged_stable"
+
