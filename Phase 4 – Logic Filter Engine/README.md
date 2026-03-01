@@ -1,8 +1,8 @@
-\# Phase 4 – Logic Filter Engine
+# Phase 4 – Logic Filter Engine
 
 
 
-\## Overview
+## Overview
 
 
 
@@ -18,7 +18,7 @@ This engine is intentionally conservative. Its goal is not to automate decisions
 
 
 
-\## Why this phase exists
+## Why this phase exists
 
 
 
@@ -26,9 +26,9 @@ After building:
 
 
 
-\- a historical data pipeline (Phase 2), and  
+- a historical data pipeline (Phase 2), and  
 
-\- an interpretability-focused probability app (Phase 3),
+- an interpretability-focused probability app (Phase 3),
 
 
 
@@ -44,13 +44,13 @@ Phase 4 formalizes the reasoning process that was already being done mentally:
 
 
 
-\- checking multiple time windows  
+- checking multiple time windows  
 
-\- enforcing consistency across samples  
+- enforcing consistency across samples  
 
-\- filtering out misleading short-term trends  
+- filtering out misleading short-term trends  
 
-\- rejecting lines that barely clear thresholds  
+- rejecting lines that barely clear thresholds  
 
 
 
@@ -58,7 +58,7 @@ Instead of trusting intuition alone, this phase encodes minimum standards a line
 
 
 
-\## What this engine does
+## What this engine does
 
 
 
@@ -66,11 +66,11 @@ At a high level, the logic filter:
 
 
 
-\- Ingests player prop lines (from supported sources)
+- Ingests player prop lines (from supported sources)
 
-\- Maps each line to underlying raw statistics
+- Maps each line to underlying raw statistics
 
-\- Evaluates historical hit rates across:
+- Evaluates historical hit rates across:
 
 &nbsp; - last 5 games  
 
