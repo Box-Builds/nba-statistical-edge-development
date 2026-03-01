@@ -1,8 +1,8 @@
-\# Phase 2 – ML Prediction Pipeline
+# Phase 2 – ML Prediction Pipeline
 
 
 
-\## Overview
+## Overview
 
 
 
@@ -26,7 +26,7 @@ This folder documents how that system was structured, automated, and operated in
 
 
 
-\## Data \& reproducibility notice (important)
+## Data & reproducibility notice (important)
 
 
 
@@ -62,7 +62,7 @@ This ensures all downstream phases operate on a consistent underlying data sourc
 
 
 
-\## What problem was this phase trying to solve?
+## What problem was this phase trying to solve?
 
 
 
@@ -94,7 +94,7 @@ This phase deliberately prioritizes system reliability and structure over model 
 
 
 
-\## High-level pipeline flow
+## High-level pipeline flow
 
 
 
@@ -152,7 +152,7 @@ This structure mirrors how a real automated system operates rather than an explo
 
 
 
-\## Local execution (optional)
+## Local execution (optional)
 
 
 
@@ -184,7 +184,7 @@ This local path is provided for reproducibility, not as a polished demo experien
 
 
 
-\## Execution context (important)
+## Execution context (important)
 
 
 
@@ -192,7 +192,7 @@ This folder reflects the production-oriented version of the pipeline.
 
 
 
-\## Key design assumptions
+## Key design assumptions
 
 
 
@@ -222,7 +222,7 @@ It documents how the system was structured and automated under real constraints,
 
 
 
-\## Key design decisions
+## Key design decisions
 
 
 
@@ -254,7 +254,7 @@ Minutes act as an upstream constraint that limits unrealistic stat projections.
 
 
 
-\### Stat-specific models
+### Stat-specific models
 
 
 
@@ -278,7 +278,7 @@ Adapt individual models independently
 
 
 
-\## Schedule-aware inference with “ghost rows”
+## Schedule-aware inference with “ghost rows”
 
 
 
@@ -294,7 +294,7 @@ To solve this, the pipeline introduces ghost rows.
 
 
 
-\## What is a ghost row?
+## What is a ghost row?
 
 
 
@@ -302,7 +302,7 @@ A ghost row is a synthetic player–game record representing a real upcoming sch
 
 
 
-\### These rows:
+### These rows
 
 
 
@@ -318,7 +318,7 @@ Include only features known prior to the game
 
 
 
-\### How ghost rows are created
+### How ghost rows are created
 
 
 
@@ -354,7 +354,7 @@ Days of rest since last game
 
 
 
-\### Minutes as an upstream dependency
+### Minutes as an upstream dependency
 
 
 
@@ -378,7 +378,7 @@ This design allows the system to generate predictions for specific scheduled eve
 
 
 
-\### Practical nuance
+### Practical nuance
 
 
 
@@ -394,7 +394,7 @@ Rather than attempting to perfectly predict availability at inference time, thes
 
 
 
-\## What worked well
+## What worked well
 
 
 
@@ -414,7 +414,7 @@ Automation reduced manual intervention and human bias at the prediction stage
 
 
 
-\## Limitations and where human judgment was required
+## Limitations and where human judgment was required
 
 
 
@@ -438,7 +438,7 @@ These limitations directly motivated later phases focused on probability interpr
 
 
 
-\## Relationship to later phases
+## Relationship to later phases
 
 
 
@@ -458,7 +458,7 @@ Prediction provides signal — not judgment.
 
 
 
-\## Key takeaway
+## Key takeaway
 
 
 
@@ -472,7 +472,7 @@ Context, risk management, and judgment must exist downstream.
 
 
 
-\## Final note
+## Final note
 
 
 
