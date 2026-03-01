@@ -202,7 +202,7 @@ A planned future update introduces controlled carryover logic:
 
 &nbsp; - used only when current-season games are insufficient
 
-\- Once a player has played 10 games in the new season, all prior-season data is excluded
+- Once a player has played 10 games in the new season, all prior-season data is excluded
 
 
 
