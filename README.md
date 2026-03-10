@@ -22,7 +22,7 @@ The final system used in practice relies primarily on:
 
 Machine learning predictions were explored as part of the development process but are **not used directly in the final decision workflow**.
 
-Instead, the most reliable signal came from **understanding how outcomes historically occur and enforcing consistent statistical thresholds before any line is considered for review**.
+Instead, the most reliable signal came from **understanding how outcomes historically occur** and enforcing consistent statistical thresholds before any line is considered for review.
 
 This repository is best understood as a **case study in developing a real-world analytical system under uncertainty**, where iteration, skepticism, and disciplined filtering ultimately proved more valuable than complex models.
 
