@@ -67,7 +67,7 @@ It relies on the same raw dataset generated in **Phase 2**.
 To run the app locally:
 
 ### Step 1 — Generate the dataset in Phase 2
-**
+
 ```
 python run_local_fetch.py
 ```
