@@ -44,13 +44,14 @@ This repository is best understood as a **case study in developing a real-world 
 
 The project is structured as a four-phase progression where each phase reflects a shift in approach based on what worked, what failed, and what proved fragile in practice.
 
+```text
 NBA_Statistical_Edge_Development/
 
 ├── Phase 1 – Market Comparison
 ├── Phase 2 – ML Prediction Pipeline
 ├── Phase 3 – Probability & Interpretability App
 └── Phase 4 – Logic Filter Engine
-
+```
 
 Each phase has its own README explaining:
 
