@@ -1,4 +1,4 @@
-**# Phase 3 — Probability & Interpretability App
+***# Phase 3 — Probability & Interpretability App
 
 ## Overview
 
