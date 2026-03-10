@@ -52,6 +52,8 @@ NBA_Statistical_Edge_Development/
 ├── Phase 3 – Probability & Interpretability App
 └── Phase 4 – Logic Filter Engine
 ```
+```markdown
+Phase 2 generates the historical dataset used by later phases, while Phase 3 and Phase 4 build analytical tools on top of that shared data layer.
 
 Each phase has its own README explaining:
 
