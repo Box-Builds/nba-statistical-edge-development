@@ -121,7 +121,14 @@ Before running the filtering engine, ensure the dataset has been generated local
 ```
 python run_local_fetch.py
 ```
-
+Then copy the generated file:
+```
+Phase_2/data/raw/nba_player_game_stats_full.csv
+```
+into the Phase 4 directory:
+```
+Phase_4/data/raw/
+```
 This dataset provides the historical player statistics used to compute hit rates and evaluate candidate lines.
 
 ---
