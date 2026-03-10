@@ -111,7 +111,7 @@ Although originally designed for automated execution, the pipeline can also be e
 pip install -r requirements_pipeline.txt
 python run_local_fetch.py
 python Master.py
-text'''
+```
 
 ### What these scripts do
 
