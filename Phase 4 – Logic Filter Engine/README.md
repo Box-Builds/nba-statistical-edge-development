@@ -215,9 +215,11 @@ These tradeoffs are intentional.
 
 # Final Note
 
-Phase 4 formalizes a lesson that emerged throughout development:
+Phase 4 formalizes a pattern that emerged throughout development.
 
-Blind automation is fragile.  
-Unstructured intuition does not scale.
+Pure automation can be fragile when models encounter edge cases or incomplete information.  
+At the same time, evaluating every line manually does not scale.
 
-This engine exists to sit between those two extremes — and improve both.
+This engine exists to bridge that gap.
+
+It removes weak candidates automatically while leaving final judgment to a human reviewer — combining the consistency of rules with the flexibility of human reasoning.
