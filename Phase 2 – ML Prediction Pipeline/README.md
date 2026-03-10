@@ -1,484 +1,362 @@
-# Phase 2 – ML Prediction Pipeline
-
-
+# Phase 2 — ML Prediction Pipeline
 
 ## Overview
 
+This phase represents the core machine learning pipeline built to generate **daily NBA player stat predictions in a production-style environment**.
 
+Unlike a notebook-based workflow, this system was designed to operate as an automated pipeline with clear separation between:
 
-This phase represents the core machine learning prediction pipeline used to generate daily NBA player stat predictions in a production-style environment.
+- data ingestion and maintenance  
+- model training  
+- daily inference  
 
+The system originally ran on a scheduled basis using **GitHub Actions and cloud infrastructure**, allowing predictions to be generated automatically as new NBA data became available.
 
+The goal of this phase was not to create a one-click demo, but to answer a systems-level question:
 
-Unlike a notebook-based or interactive workflow, this pipeline was designed to run fully automated using GitHub Actions and cloud infrastructure, with a clear separation between data ingestion, model training, and daily inference.
+> Can a machine learning system generate stable, reusable NBA player stat predictions on a daily schedule under real league conditions?
 
+These conditions include injuries, trades, role changes, missing data, and the operational challenge of maintaining the underlying dataset.
 
+---
 
-The purpose of this phase was not to build a one-click demo, but to answer a practical systems question:
+# Data & Reproducibility Notice
 
+This repository intentionally **does not include**:
 
+- raw NBA datasets  
+- processed training tables  
+- trained model artifacts  
+- prediction outputs  
 
-Can a machine learning system generate stable, reusable NBA player stat predictions on a daily schedule under real league conditions (injuries, trades, role changes, missing data)?
+The pipeline relies on historical NBA data originally sourced from `nba.com` endpoints. To avoid redistributing scraped datasets, the required data must be generated locally after downloading the repository.
 
+This phase includes fetch/update scripts that allow users to:
 
+- generate the historical dataset locally  
+- update the master games file with newly completed games  
+- rebuild the dataset used by downstream phases  
 
-This folder documents how that system was structured, automated, and operated in practice.
+The generated raw dataset is reused across multiple phases of the project:
 
+- Phase 2 — ML Prediction Pipeline  
+- Phase 3 — Probability & Interpretability App  
+- Phase 4 — Logic Filter Engine  
 
+This ensures all downstream phases operate on a **consistent underlying data source**.
 
-## Data & reproducibility notice (important)
+During execution, the pipeline automatically creates required directories such as:
 
+- `data/raw/`
+- `data/processed/`
+- `outputs/`
 
+These generated folders are intentionally excluded from version control.
 
-This repository does not include raw NBA datasets, processed training tables, trained models, or prediction outputs.
+---
 
+# Problem This Phase Addresses
 
+After Phase 1 demonstrated that **market comparison alone was not a reliable long-term edge**, the project shifted toward independently estimating player outcomes using historical data.
 
-The pipeline relies on historical NBA player game logs, schedules, and rosters originally sourced from nba.com endpoints. To avoid redistributing scraped datasets, all such data is generated locally by the user.
+The primary goals of this phase were to:
 
+- build models that predict common NBA stat categories  
+- run those models on a **daily schedule**  
+- produce outputs stable enough to feed downstream systems  
+- operate in an **automated, production-style environment**
 
+This phase deliberately prioritizes **system reliability, repeatability, and structure over model novelty**.
 
-For reproducibility, this phase includes fetch scripts that allow external users to generate the required data on their own machine.
+---
 
+# High-Level Pipeline Flow
 
+Conceptually, the pipeline operates as follows:
 
-The generated raw game log dataset is intentionally reused across multiple phases of this project:
+### 1. Raw data generation and maintenance
 
+Historical player game logs, schedules, and rosters are generated locally and updated over time through standalone fetch/update scripts.
 
+### 2. Minutes prediction
 
-Phase 2 – ML Prediction Pipeline
+A dedicated model predicts expected playing time for each player.
 
-
-
-Phase 3 – Probability App
-
-
-
-Phase 4 – Logic Filter Engine
-
-
-
-This ensures all downstream phases operate on a consistent underlying data source.
-
-
-
-## What problem was this phase trying to solve?
-
-
-
-After determining that market comparison alone was not a reliable long-term edge (Phase 1), this phase focused on independently estimating player outcomes using historical data.
-
-
-
-The primary goals were to:
-
-
-
-Build models that predict common player stat categories (PTS, REB, AST, FG3M)
-
-
-
-Run those models daily with updated data
-
-
-
-Produce outputs stable enough to be consumed downstream
-
-
-
-Operate in an automated, production-like environment rather than ad hoc scripts
-
-
-
-This phase deliberately prioritizes system reliability and structure over model novelty.
-
-
-
-## High-level pipeline flow
-
-
-
-At a conceptual level, the pipeline operates as follows:
-
-
-
-Raw data is generated locally
-
-Player game logs, schedules, and rosters are fetched via standalone scripts.
-
-
-
-Minutes are modeled first
-
-A dedicated minutes model predicts expected playing time.
-
-
-
-Stat-specific models run
+### 3. Stat prediction models
 
 Separate models generate predictions for:
 
+- Points  
+- Rebounds  
+- Assists  
+- Three-point makes  
 
-
-Points
-
-
-
-Rebounds
-
-
-
-Assists
-
-
-
-Three-point makes
-
-
-
-Predictions are merged
+### 4. Prediction merging
 
 Individual stat outputs are combined into a unified daily prediction dataset.
 
+### 5. Automated execution
 
+In production, the pipeline ran automatically using **GitHub Actions**.
 
-Automation executes the process
+This structure mirrors how real analytical systems operate rather than a typical exploratory notebook workflow.
 
-In production, prediction and merge steps ran on a schedule using GitHub Actions.
+---
 
+# Local Execution
 
-
-This structure mirrors how a real automated system operates rather than an exploratory notebook workflow.
-
-
-
-## Local execution (optional)
-
-
-
-Although this phase was originally designed to run in a production / serverless environment, the pipeline can be executed locally for transparency and reproducibility.
-
-
+Although originally designed for automated execution, the pipeline can also be executed locally for transparency and reproducibility.
 
 From this folder:
-
-
-
-pip install -r requirements\_pipeline.txt
-
-python run\_local\_fetch.py
-
+pip install -r requirements_pipeline.txt
+python run_local_fetch.py
 python Master.py
 
+### What these scripts do
 
+**run_local_fetch.py**
 
-run\_local\_fetch.py generates raw NBA data locally
+Runs the local data-fetch pipeline in the correct order by executing:
 
+- the schedule builder  
+- the roster updater  
+- the games updater  
 
+It also automatically creates the runtime directories:
 
-Master.py runs the prediction pipeline assuming required data exists
+- `data/raw/`
+- `data/processed/`
+- `outputs/`
 
+**Master.py**
 
+Runs the prediction pipeline assuming the required data already exists.
 
-This local path is provided for reproducibility, not as a polished demo experience.
+This local execution path is included for reproducibility and inspection rather than as a polished demo workflow.
 
+---
 
+# Important Data Dependency
 
-## Execution context (important)
+The dataset generated in this phase is required for later phases of the project.
 
+In particular, the **raw games dataset** produced by the fetch/update scripts is reused by:
 
+- Phase 3 — Probability & Interpretability App  
+- Phase 4 — Logic Filter Engine  
 
-This folder reflects the production-oriented version of the pipeline.
+These phases assume that the Phase 2 data pipeline has already been executed locally.
 
+---
 
+# Data Maintenance Layer
 
-## Key design assumptions
+An important part of this phase was maintaining the **master raw games dataset** over time.
 
+The update scripts were designed to do more than a one-time fetch. They also handled operational tasks such as:
 
+- pulling recent game logs for active players  
+- appending only new games to the master dataset  
+- backing up the existing raw file before modification  
+- repairing season-related fields when needed  
+- retrying failed requests  
+- tracking players that repeatedly failed to fetch  
+- removing duplicate rows using stable player/game keys  
 
-Data fetching, training, and prediction are logically separated
+This made the data layer more reliable and reduced the amount of manual cleanup required to keep the pipeline usable over time.
 
+---
 
+# Execution Context
 
-Fetch scripts exist but are intentionally decoupled from prediction orchestration
+This folder reflects the **production-oriented version of the pipeline**.
 
+Key assumptions include:
 
+- data fetching, updating, training, and prediction are logically separated  
+- fetch/update scripts are decoupled from prediction orchestration  
+- training scripts exist but trained artifacts are not committed  
+- `Master.py` orchestrates prediction assuming required data already exists  
+- path resolution is centralized through `paths.py`
 
-Training scripts exist, but trained artifacts are not committed
+This phase is **not intended to be plug-and-play**.
 
+The goal is to document how the system operated under real constraints rather than optimizing for tutorial-style ease of use.
 
+---
 
-Master.py orchestrates prediction only and assumes required data already exists
+# Key Design Decisions
 
-
-
-Path resolution is centralized via paths.py to enforce consistent execution
-
-
-
-This phase is not intended to be plug-and-play.
-
-It documents how the system was structured and automated under real constraints, not how to maximize ease of use.
-
-
-
-## Key design decisions
-
-
-
-Explicit minutes modeling
-
-
+## Explicit Minutes Modeling
 
 Player minutes were modeled separately and injected into downstream stat models.
 
+This significantly improved prediction stability for situations such as:
 
+- bench players  
+- role changes  
+- players returning from injury  
 
-This materially improved stability, especially for:
+Minutes act as an upstream constraint that reduces unrealistic stat projections.
 
+---
 
+## Stat-Specific Models
 
-Bench players
+Rather than training a single monolithic model, each stat category has its own model.
 
+This makes it easier to:
 
+- reason about performance  
+- debug model behavior  
+- adjust models independently  
 
-Role changes
+---
 
+# Schedule-Aware Inference with Ghost Rows
 
+A key challenge was generating predictions for **future games that do not yet exist in the dataset**.
 
-Players returning from injury
+Because models operate on player–game rows, inference requires a row with the same feature structure used during training.
 
+Upcoming games have no box score data, so no natural row exists.
 
+To solve this, the pipeline introduces **ghost rows**.
 
-Minutes act as an upstream constraint that limits unrealistic stat projections.
+---
 
+## What is a Ghost Row?
 
+A ghost row is a **synthetic player–game record representing a real upcoming NBA game**.
 
-### Stat-specific models
+These rows:
 
+- correspond to a real scheduled game  
+- contain no outcome data  
+- include only features known prior to the game  
 
+---
 
-Rather than one monolithic model, each stat category has its own model.
+## How Ghost Rows Are Created
 
+Ghost rows are generated by:
 
+1. identifying each team’s most recent completed game  
+2. locating the team’s next scheduled game  
+3. expanding that game across rostered players  
+4. populating rows with pre-game features such as:
 
-This made it easier to:
+- opponent information  
+- home/away status  
+- game date  
+- rolling historical statistics  
+- days of rest  
 
+---
 
+## Minutes as an Upstream Dependency
 
-Reason about performance
+Ghost rows are merged with predicted minutes.
 
+The workflow is:
 
+1. minutes are predicted first  
+2. predictions are joined by `Player_ID` and `GAME_DATE`  
+3. stat models generate predictions conditional on expected playing time  
 
-Debug issues
+This allows the system to generate game-specific predictions **without data leakage**.
 
+---
 
+## Practical Nuance
 
-Adapt individual models independently
+Ghost rows are roster-driven, meaning the pipeline may generate rows for players who ultimately do not play due to:
 
-
-
-## Schedule-aware inference with “ghost rows”
-
-
-
-A core challenge was generating predictions for future games that do not yet exist in the dataset.
-
-
-
-Because models are trained on player–game rows, inference requires a row with the same feature structure. Upcoming games have no box score data and therefore no natural row to predict against.
-
-
-
-To solve this, the pipeline introduces ghost rows.
-
-
-
-## What is a ghost row?
-
-
-
-A ghost row is a synthetic player–game record representing a real upcoming scheduled game that has not yet been played.
-
-
-
-### These rows
-
-
-
-Correspond to an actual future NBA game
-
-
-
-Contain no outcome data
-
-
-
-Include only features known prior to the game
-
-
-
-### How ghost rows are created
-
-
-
-Identify each team’s last completed game
-
-
-
-Scan the NBA schedule for the team’s next unplayed game
-
-
-
-Expand that game to all rostered players
-
-
-
-Populate rows with:
-
-
-
-Team and opponent context
-
-
-
-Home/away flag and game date
-
-
-
-Rolling historical features
-
-
-
-Days of rest since last game
-
-
-
-### Minutes as an upstream dependency
-
-
-
-Ghost rows are merged with predicted minutes:
-
-
-
-Minutes are predicted first
-
-
-
-Predictions are joined by Player\_ID and GAME\_DATE
-
-
-
-Downstream stat models predict conditional on expected playing time
-
-
-
-This design allows the system to generate predictions for specific scheduled events without data leakage.
-
-
-
-### Practical nuance
-
-
-
-Ghost rows are roster-driven, meaning the pipeline may generate rows for players who ultimately do not play (e.g., inactive players, DNPs, or edge cases around trades).
-
-
+- inactive status  
+- last-minute lineup changes  
+- trades or roster edge cases  
 
 This is intentional.
 
+Rather than attempting to perfectly predict availability at inference time, these cases were handled later through filtering logic and human review.
 
+---
 
-Rather than attempting to perfectly predict availability at inference time, these cases are handled downstream through minutes behavior, filtering logic, and human sanity checks.
+# What Worked Well
 
+Several aspects of the pipeline proved effective:
 
+- the system ran reliably on a daily schedule  
+- minutes modeling improved downstream prediction stability  
+- outputs were stable enough to feed later phases  
+- automation reduced manual intervention at the prediction stage  
+- the data maintenance scripts helped keep the dataset clean and current  
 
-## What worked well
+---
 
+# Limitations
 
+Some limitations remained unavoidable:
 
-The pipeline ran reliably on a daily schedule
+- early-season cold starts  
+- role changes following trades  
+- small sample sizes inflating short-term trends  
+- predictions that were statistically reasonable but contextually misleading  
+- availability uncertainty that cannot be fully resolved at inference time  
 
+These limitations directly motivated later phases focused on **probability interpretation and logic filtering**.
 
+---
 
-Minutes modeling materially improved downstream predictions
+# Train/Test Split Limitation
 
+The current evaluation framework uses a **random train/test split**.
 
+While this is a common default approach in many machine learning workflows, it is not ideal for time-dependent data such as sports performance.
 
-Outputs were stable enough to be consumed by downstream logic
+Because player game logs are chronological, random splitting can introduce **temporal leakage**, where future games appear in the training data while earlier games appear in the test set. This can lead to overly optimistic evaluation metrics such as MAE or RMSE.
 
+Importantly, this does **not change the predictions generated by the trained models themselves**. However, it can make model performance appear stronger during evaluation than it truly is when applied in real-world scenarios.
 
+This limitation became apparent when predictions that looked reasonable according to model metrics did not translate into actionable results in practice. Investigating this discrepancy revealed that the evaluation framework was allowing future information to influence model evaluation.
 
-Automation reduced manual intervention and human bias at the prediction stage
+A more appropriate approach would be a **time-based split**, where models are trained on earlier games and evaluated on later games in chronological order.
 
+Future improvements to the pipeline would include time-aware evaluation methods such as chronological splits, rolling-window evaluation, or walk-forward validation to better simulate real-world prediction conditions.
 
+---
 
-## Limitations and where human judgment was required
+# Relationship to Later Phases
 
+This phase intentionally stops at **prediction generation**.
 
+Subsequent phases build on these outputs:
 
-Cold starts early in the season
+**Phase 3 — Probability & Interpretability App**
 
+Interprets predictions in the context of historical distributions and probability signals.
 
+**Phase 4 — Logic Filter Engine**
 
-Trade-related role changes
-
-
-
-Small sample sizes inflating short-term trends
-
-
-
-Predictions that were statistically reasonable but contextually misleading
-
-
-
-These limitations directly motivated later phases focused on probability interpretation and logic filtering.
-
-
-
-## Relationship to later phases
-
-
-
-This phase intentionally stops at prediction generation.
-
-
-
-Phase 3 focuses on interpreting predictions as probabilities rather than raw point estimates
-
-
-
-Phase 4 applies logic-based filtering and human-in-the-loop constraints to convert predictions into actionable decisions
-
-
+Applies rule-based filtering and human-in-the-loop constraints to convert signals into actionable decisions.
 
 Prediction provides signal — not judgment.
 
+---
 
+# Key Takeaway
 
-## Key takeaway
+A machine learning pipeline can reliably generate daily NBA player stat expectations in an automated environment.
 
+However, prediction alone is not sufficient for decision-making.
 
+Models provide signal.  
+Context, uncertainty, and human judgment must exist downstream.
 
-A machine learning pipeline can reliably generate daily NBA player stat expectations, but prediction alone is not sufficient for decision-making.
+---
 
+# Final Note
 
+This phase is best understood as a **production system case study**, not a tutorial.
 
-Models provide signal.
-
-Context, risk management, and judgment must exist downstream.
-
-
-
-## Final note
-
-
-
-This phase is best understood as a production case study, not a tutorial.
-
-
-
-It reflects the constraints, compromises, and structure of a real system that ran end-to-end in an automated environment — including the parts that required human judgment outside the model.
-
+It reflects the structure, compromises, and operational decisions involved in building a real automated NBA prediction pipeline — including the supporting data maintenance work required to keep that system running over time.
