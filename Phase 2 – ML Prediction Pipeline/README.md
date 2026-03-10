@@ -107,10 +107,11 @@ This structure mirrors how real analytical systems operate rather than a typical
 
 Although originally designed for automated execution, the pipeline can also be executed locally for transparency and reproducibility.
 
-From this folder:
+```text
 pip install -r requirements_pipeline.txt
 python run_local_fetch.py
 python Master.py
+'''
 
 ### What these scripts do
 
